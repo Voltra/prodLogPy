@@ -1,0 +1,3 @@
+from calculus import *
+
+calculus()
