@@ -7,11 +7,24 @@ def toArray(filePath, symbol=""):
     if symbol=="":
         for line in f.readlines():
             for obj in line:
+                if (line == 1):
+                    array.append("start")
                 array.append(obj)
     else:
+        fline = 0
         for line in f.readlines():
+
+            if fline == 0:
+                array.append("<start>")
+                print("start")
+
             obj = line.split(symbol)
             array.extend(obj)
+
+            if fline == 0:
+                array.append("<end>")
+                fline = 1
+
     f.close()
     return array
 
@@ -45,11 +58,18 @@ def toString(array,symbol=""):
             tmp += symbol
     print(tmp)
 
-def findNumRows(array):
-    it = 0
+def findLinkedValue(array, value):
+    numRow = countRows(array)
+    map = dict()
+    for i in range(0, len(array), numRow):
+        map[value] = array[i]
+    return map
+
+
+def countRows(array):
     for i in range(0, len(array)):
-        for char in array[i]:
-            if char =='"':
-                it += 1
-            if it > 1:
-                return i
+        if (array[i]=="<start>"):
+            array.pop(i)
+        if(array[i]=="<end>"):
+            array.pop(i)
+            return i
