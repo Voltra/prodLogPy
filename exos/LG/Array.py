@@ -8,13 +8,13 @@ class Array(object):
     #
 
     def join(self, glue=", "):
-        if self.length() == 0:
+        length = self.length()
+        if length == 0:
             return ""
-        elif self.length() == 1:
+        elif length == 1:
             return str(self[0])
         else:
             ret = str(self[0])
-            length = self.length()
             for i in range(1, length):
                 ret += glue + str(self[i])
 
@@ -81,6 +81,12 @@ class Array(object):
         return foundIndex
     #
 
+    def forEach(self, functor):
+        for elem in self:
+            functor(elem)
+
+        return self
+    #
 
     def filter(self, predicate):
         return Array(list(filter(predicate, self.inner)))
