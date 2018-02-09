@@ -1,19 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import sys
-import os
-sys.path.append("data_analysis/LG/")
-sys.path.append("exos/LG/")
 
-from readCSVtest import printCsvFile, getCsvAsDict
-from Array import Array
+import sys
+sys.path.append("data_analysis/LG/")
+sys.path.append("exos/LG")
+
+from writeCsvToSqlite import createTableFromData
+import sqlite3
 
 rscPath = "exos/rsc/data/"
 csvPath = rscPath + "/csv"
-csvFile = lambda x : csvPath + "/" + x
+csvFile = lambda x: csvPath + "/" + x
 
-dict = list( getCsvAsDict( csvFile("equipements.csv"), ";" ) )
-for row in dict:
-    print("Amount of cols: " + str(len(row)))
-    print("Columns: " + str(list(row.keys())))
-    break
+connection = sqlite3.connect("database_LG.db")
+cursor = connection.cursor()
+createTableFromData(tableName="activites", cursor=cursor, csvPath=csvFile("activites.csv"))
+connection.commit()
+cursor.close()
