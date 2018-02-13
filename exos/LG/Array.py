@@ -3,17 +3,26 @@ def copyIterable(iterable):
 #
 
 class Array(object):
+    """
+    Constructor
+    @:param iterable being the iterable to construct form
+    """
     def __init__(self, iterable):
         self.inner = copyIterable(iterable)
     #
 
+    """
+    Joins the element into a string
+    @:param glue being the string to use as a "glue" between elements
+    @:returns a string that represents the elements of this Array glued together using the given glue
+    """
     def join(self, glue=", "):
         length = self.length()
-        if length == 0:
+        if length == 0: #if there's no elements, return an empty string
             return ""
-        elif length == 1:
+        elif length == 1: #if there's only one element, return this element as a string
             return str(self[0])
-        else:
+        else: #otherwise, glue the elements together
             ret = str(self[0])
             for i in range(1, length):
                 ret += glue + str(self[i])
@@ -21,31 +30,61 @@ class Array(object):
             return ret
     #
 
+    """
+    Determines the size of this Array
+    @:returns the size of this Array
+    """
     def length(self):
         return len(self)
     #
 
+    """
+    Alias of "length"
+    @:returns the size of this Array
+    """
     def size(self):
         return self.length()
     #
 
+    """
+    Determines whether or not the given element appears in this Array
+    @:param elemToFind being the element to find
+    @:returns True if it appears in this Array, False otherwise
+    """
     def contains(self, elemToFind):
         return self.indexOf(elemToFind) >= 0
     #
 
+    """
+    Alias of "contains"
+    @:param elemToFind being the element to find
+    @:returns True if it appears in this Array, False otherwise
+    """
     def includes(self, elemToFind):
         return self.contains(elemToFind)
     #
 
+    """
+    Adds an element to the end of this Array
+    @:param elem being the element to add
+    @:returns self
+    """
     def push(self, elem):
         self.inner.append(elem)
         return self
     #
 
+    """
+    Deletes the last element of this Array
+    @:returns the element that was removed
+    """
     def pop(self):
         return self.inner.pop()
     #
 
+    """
+    Computes the
+    """
     def findIndex(self, predicate):
         for index in range(0, len(self)):
             if predicate(self[index]):

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from Array import Array
 from readCSVtest import getCsvAsDict
+from ftfy import fix_text
+import numbers
 
 """
 Creates a SQLite3 table from a correct CSV file
@@ -18,10 +20,19 @@ def createTableFromData(tableName, cursor, csvPath, sep=","):
         raise AssertionError("The given CSV file should at least have 1 row of data in order to create the said table from existing data")
     keys = Array( list(rows[0].keys()) )
 
+
+    fixUtf8IfString = lambda v : fix_text(v) if not isinstance(v, numbers.Number) else v
+
     strTableName = str(tableName)
-    keysJoined = keys.join(", ")
+    keysJoined = keys.map(fixUtf8IfString).map(lambda s : "`"+s+"`").join(", ")
+    print(keysJoined)
+    cursor.execute("DROP TABLE IF EXISTS " + strTableName)
     cursor.execute("CREATE TABLE IF NOT EXISTS " + strTableName + " (" + keysJoined + ")")
 
+    parseBoolIfBool = lambda s : True if s == "Oui" else False if s == "Non" else s
+
     for row in rows:
-        cursor.execute("INSERT INTO " + strTableName + "(" + keysJoined + ") VALUES (" + keys.map(lambda x: "?").join(", ") + ")", list(row.values()))
+        values = Array(list(row.values())).map(fixUtf8IfString).map(parseBoolIfBool).toArray()
+        placeholders = keys.map(lambda x: "?").join(", ")
+        cursor.execute("INSERT INTO " + strTableName + "(" + keysJoined + ") VALUES (" + placeholders + ")", values)
 #
