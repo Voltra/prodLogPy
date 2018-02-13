@@ -61,8 +61,12 @@ def toString(array,symbol=""):
 def findLinkedValue(array, value):
     numRow = countRows(array)
     map = dict()
+    innerArray = []
+    index = array.index(value)
+    numRow = numRow + index
     for i in range(0, len(array), numRow):
-        map[value] = array[i]
+        innerArray.append(array[i])
+    map[value] = innerArray
     return map
 
 
@@ -73,3 +77,5 @@ def countRows(array):
         if(array[i]=="<end>"):
             array.pop(i)
             return i
+        else:
+            return 0

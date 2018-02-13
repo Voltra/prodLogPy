@@ -2,4 +2,4 @@ from utils import *
 
 tab = toArray("../../exos/rsc/data/csv/equipements.csv",';')
 
-print(countRows(tab))
+print(findLinkedValue(tab,tab[0]))
