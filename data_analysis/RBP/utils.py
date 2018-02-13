@@ -1,24 +1,22 @@
-"""Méthode permettant de transformer un fichier en tableau, soit ligne par ligne, soit en séparant sur
-    un symbole donné en entrée"""
-def toArray(filePath, symbol=""):
+import json
+
+def toArray(filePath, delimeter=""):
 
     array = []
-    f = open(filePath, "r")
-    if symbol=="":
-        for line in f.readlines():
+    f = open(filePath, "r", encoding="utf-8")
+    if delimeter=="":
+        for line in f:
             for obj in line:
-                if (line == 1):
-                    array.append("start")
                 array.append(obj)
     else:
         fline = 0
-        for line in f.readlines():
+        for line in f:
 
             if fline == 0:
                 array.append("<start>")
                 print("start")
 
-            obj = line.split(symbol)
+            obj = line.split(delimeter)
             array.extend(obj)
 
             if fline == 0:
@@ -58,24 +56,36 @@ def toString(array,symbol=""):
             tmp += symbol
     print(tmp)
 
-def findLinkedValue(array, value):
-    numRow = countRows(array)
+def findLinkedValue(array, value, numColumn):
     map = dict()
     innerArray = []
     index = array.index(value)
-    numRow = numRow + index
-    for i in range(0, len(array), numRow):
+    for i in range(index, len(array), numColumn):
         innerArray.append(array[i])
     map[value] = innerArray
     return map
 
 
-def countRows(array):
+def countColumn(array):
     for i in range(0, len(array)):
         if (array[i]=="<start>"):
             array.pop(i)
         if(array[i]=="<end>"):
             array.pop(i)
             return i
-        else:
-            return 0
+
+def removeSymbol(array, symbol, numColumn):
+    tmp = ""
+    for i in range(0, numColumn):
+        for car in array[i]:
+            if car != symbol:
+                tmp += car
+        print(tmp)
+        array[i] = tmp
+        tmp = ""
+    return array
+
+def parseToJsonArray(path, array):
+    with open(path, "w") as file:
+        json.dump(array, file, ensure_ascii=False)
+        file.close()
