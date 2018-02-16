@@ -24,6 +24,7 @@ def createTableFromData(tableName, cursor, csvPath, sep=","):
     fixUtf8IfString = lambda v : fix_text(v) if not isinstance(v, numbers.Number) else v
 
     strTableName = str(tableName)
+
     keysJoined = keys.map(fixUtf8IfString).map(lambda s : "`"+s+"`").join(", ")
     print(keysJoined)
     cursor.execute("DROP TABLE IF EXISTS " + strTableName)
