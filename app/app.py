@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-from flask import Flask, jsonify
+from flask import Flask, jsonify, url_for, render_template
 from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
@@ -30,6 +30,10 @@ class Data(Resource):
 @app.route("/")
 def test():
     return jsonify(DATA)
+
+@app.route("/test")
+def test2():
+    return render_template("test.twig", name=120)
 
 def makeApiUrl(uri):
     return "/api" + uri
