@@ -3,15 +3,12 @@ import sys
 sys.path.append("../../exos/LG/")
 
 
-tab = toArray("../../exos/rsc/data/csv/installations.csv",',')
-numColumn = countColumn(tab)
+tab = toArray("../../exos/rsc/data/csv/activites.csv",',','"')
+# subTab = countColumn("../../exos/rsc/data/csv/activites.csv",',','"')
 
-tab = removeSymbol(tab,'"',numColumn)
-
-tmp = []
-for i in range(0,numColumn-1):
-    tmp.append(tab[i])
-
-print(tmp)
-
-parseToJsonArray("installations_column_name.json", tmp)
+tmp = ""
+for i in range(0, 27720):
+    if i%10 == 0:
+        print(str(i)+"::"+tmp)
+        tmp = ""
+    tmp += tab[i]+" "

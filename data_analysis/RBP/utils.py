@@ -1,27 +1,50 @@
 import json
+import csv
 
-def toArray(filePath, delimeter=""):
+def readCSV(filepath, delimiter, quotechar):
+    with open(filepath, "r") as csvfile:
+        array = csv.DictReader(csvfile)
+    for row in array:
+        print(', '.join(row))
+    return array
+
+def toArray(filePath, delimiter="", quotechar=""):
 
     array = []
     f = open(filePath, "r", encoding="utf-8")
-    if delimeter=="":
+    if delimiter=="":
         for line in f:
             for obj in line:
                 array.append(obj)
     else:
-        fline = 0
+        quote = 0
+        tmp = ""
         for line in f:
 
-            if fline == 0:
-                array.append("<start>")
-                print("start")
+            for i in range(0, len(line)):
 
-            obj = line.split(delimeter)
-            array.extend(obj)
+                if (line[i] == quotechar):
+                    quote += 1
+                    continue
 
-            if fline == 0:
-                array.append("<end>")
-                fline = 1
+                if (line[i] == delimiter and i+1 == len(line)-1):
+                    array.append("NULL")
+                    tmp = ""
+                    continue
+
+                if (line[i] == delimiter and tmp == ""):
+                    array.append("NULL")
+                    tmp = ""
+                    continue
+
+                if (line[i] == delimiter and quote == 0 or quote == 2):
+                    tmp = tmp.replace("\n","n")
+                    array.append(tmp)
+                    quote = 0
+                    tmp = ""
+                    continue
+
+                tmp += line[i]
 
     f.close()
     return array
@@ -32,55 +55,57 @@ def formatInt(array):
         array[i] = int(array[i])
     return array
 
-def join(array, glue=", "):
-    length = len(array)
-    if length == 0:
-        return ""
-    elif length == 1:
-        return str(array[0])
-    else:
-        ret = str(array[0])
-        for i in range(1, length):
-            ret += glue + str(array[i])
-
-        return ret
-
-def toString(array,symbol=""):
+def toString(array, delimiter=""):
     tmp = ""
-    if symbol =="":
+    if delimiter =="":
         for obj in array:
             tmp += str(obj)
     else:
         for obj in array:
             tmp += str(obj)
-            tmp += symbol
+            tmp += delimiter
     print(tmp)
 
 def findLinkedValue(array, value, numColumn):
     map = dict()
     innerArray = []
     index = array.index(value)
-    for i in range(index, len(array), numColumn):
+    for i in range(index, len(array), numColumn-1):
         innerArray.append(array[i])
     map[value] = innerArray
     return map
 
+"""Récupèrer la première ligne"""
+def countColumn(filePath, delimiter="", quotechar=""):
+    quote = 0
+    array = []
+    tmp = ""
+    with open(filePath, "r") as file:
+        line = file.readline()
+        for i in range(0, len(line)):
 
-def countColumn(array):
-    for i in range(0, len(array)):
-        if (array[i]=="<start>"):
-            array.pop(i)
-        if(array[i]=="<end>"):
-            array.pop(i)
-            return i
+            if (line[i] == quotechar):
+                quote += 1
+                continue
 
-def removeSymbol(array, symbol, numColumn):
+            if (line[i] == delimiter and quote == 0 or quote == 2 and i < len(line)):
+                quote = 0
+                array.append(tmp)
+                tmp = ""
+                continue
+
+            tmp += line[i]
+    file.close()
+    return array
+
+
+
+def removeSymbol(array, delimiter, numColumn):
     tmp = ""
     for i in range(0, numColumn):
         for car in array[i]:
-            if car != symbol:
+            if car != delimiter:
                 tmp += car
-        print(tmp)
         array[i] = tmp
         tmp = ""
     return array
