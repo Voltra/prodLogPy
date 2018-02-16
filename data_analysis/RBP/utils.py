@@ -38,7 +38,7 @@ def toArray(filePath, delimiter="", quotechar=""):
                     continue
 
                 if (line[i] == delimiter and quote == 0 or quote == 2):
-                    tmp = tmp.replace("\n","n")
+                    tmp = tmp.replace("\n","")
                     array.append(tmp)
                     quote = 0
                     tmp = ""
