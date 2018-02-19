@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-def installationsParVille():
+def installationsParCodeInsee():
     return """
-    select a.ComLib as "NomCommune",
-    a.ComInsee as "NumInsee",
+    select a.ComInsee as "NumInsee",
+    a.ComLib as "NomCommune",
     a.ActLib as 'Activites',
     e.EquNom as 'NomEquipements',
     i.Latitude as 'Latitude',
@@ -14,6 +14,6 @@ def installationsParVille():
     i."Nom du lieu dit" as "LieuDit",
     i."Code postal" as "CodePostal"
     from activites a, equipements e, installations i
-    where a.ComLib like ?
+    where a.ComInsee = ?;
     """
 #
