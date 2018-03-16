@@ -53,6 +53,9 @@ class Model:
         return self
     #
 
+    """
+    Override the descructor in order to close the connection when the associated object is destroyed
+    """
     def __del__(self):
         self.co.close()
     #

@@ -12,6 +12,10 @@ def copyIterable(iterable):
 A class that represents iterables as handy objects
 """
 class Array(object):
+    """
+    Create an Array from an iterable
+    @:param iterable being the iterable to construct from
+    """
     def __init__(self, iterable):
         self.inner = copyIterable(iterable)
     #
@@ -293,14 +297,27 @@ class Array(object):
         return copyIterable(self.inner)
     #
 
+    """
+    Hook to allow the use of the len() function on an Array
+    """
     def __len__(self):
         return len(self.inner)
     #
 
+    """
+    Overload of the subscript operator to retrieve a value from its index
+    @:param index being the index of the element to retrieve
+    @:returns the desired item
+    """
     def __getitem__(self, index):
         return self.inner[index]
     #
 
+    """
+    Overload of the subscript operator to set the value associated to the given index
+    @:param index being the index to which we will associate the given value
+    @:param value being the new value of the element at the given index
+    """
     def __setitem__(self, index, value):
         self.inner[index] = value
         return self
