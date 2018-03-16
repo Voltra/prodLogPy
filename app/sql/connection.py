@@ -4,6 +4,9 @@ import sqlite3
 
 import os
 
+"""
+Initialising the connection to database files
+"""
 class DBConnection:
     dirPath = os.path.dirname(os.path.realpath(__file__))
     location = dirPath + "/../../database_LG.db"

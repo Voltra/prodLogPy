@@ -14,7 +14,6 @@ class ApiModel(Model):
         super().__init__(tableName, connection)
         self.id = idCol
     #
-
     def exists(self, _id):
         query = "SELECT * FROM `%s` WHERE `%s` like ? LIMIT 1" % (self.table, self.id)
 

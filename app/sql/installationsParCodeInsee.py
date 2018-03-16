@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+"""
+A prepared statement for optimization purpose
+"""
 def installationsParCodeInsee():
     return """
     select a.ComInsee as "NumInsee",
