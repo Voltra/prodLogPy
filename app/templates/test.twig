@@ -4,5 +4,20 @@
 {% block keywords %}Test{% endblock %}
 
 {% block body %}
+    <div id="errorField"></div>
     Test {{ name }}
+    <form id="searchForm">
+        <input placeholder="votre recherche" name="query">
+        <button>RECHERCHER</button>
+    </form>
+    <div></div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for("static", filename="js/jsonclient-1.1.2/dist/jsonclient.js")  }}"></script>
+<script src="{{ url_for("static", filename="js/main.js")  }}"></script>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" src="{{ url_for("static", filename="css/main.css") }}"/>
 {% endblock %}
