@@ -46,13 +46,20 @@ class ApiModel(Model):
     @:param _id being the ID of the tuple to retrieve
     @:returns a response tuple (Json, Status), the data associated to the tuple ; 200 if there were no error, 400 if there were any
     """
-    def get(self, _id):
+    def get(self, _id, limit=LIMIT, skip=0):
         if not self.exists(_id):
             abort(404, message="No resource matching the given id")
 
-        query = "SELECT * FROM `%s` WHERE `%s` like ? LIMIT %d" % (self.table, self.id, ApiModel.LIMIT)
+
+        if limit <= 0 or limit > ApiModel.LIMIT:
+            limit = ApiModel.LIMIT
+
+        if skip < 0:
+            skip = 0
+
+        query = "SELECT * FROM `%s` WHERE `%s` like ? LIMIT ? OFFSET ?" % (self.table, self.id)
         try:
-            self.cursor.execute(query, (_id,))
+            self.cursor.execute(query, (_id, limit, skip))
         except sqlite3.Error as e:
             abort(400, message=e.args[0])
         except sqlite3.Warning as e:
@@ -63,13 +70,22 @@ class ApiModel(Model):
 
     """
     Retrieve "all" the data from the bound table (limited by a limit amount)
+    @:param limit [defaulted to ApiModel.LIMIT] being the maximum amount of tuple to get
+    @:param skip [defaulted to 0] being the offset
     @:returns a response tuple (Json, Status), the data associated to the tuple ; 200 if there were no error, 400 if there were any
     """
-    def getAll(self):
-        query = "SELECT * FROM %s LIMIT %d" % (self.table, ApiModel.LIMIT)
+    def getAll(self, limit=LIMIT, skip=0):
+        if limit <= 0 or limit > ApiModel.LIMIT:
+            limit = ApiModel.LIMIT
+
+        if skip < 0:
+            skip = 0
+
+        print(limit, skip, sep=" ")
+        query = "SELECT * FROM %s LIMIT ? OFFSET ?" % (self.table) #, limit, skip
 
         try:
-            self.cursor.execute(query)
+            self.cursor.execute(query, (limit, skip))
         except sqlite3.DatabaseError as e:
             abort(400, message=e.args[0])
         except sqlite3.Warning as e:
