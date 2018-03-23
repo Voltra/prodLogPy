@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-A prepared statement for optimization purpose
+A prepared statement for optimization purpose, retrieves 'installations' based upon a 'ComInsee'
 """
 def installationsParCodeInsee():
     return """
