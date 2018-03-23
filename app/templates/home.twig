@@ -4,6 +4,7 @@
 {% block keywords %}accueil,recherche,api,installations,equipements,activites,installation,equipement,activite{% endblock %}
 
 {% block css %}
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", "css/flash.css") }}"/>
 {% endblock %}
 
 {% block js %}
@@ -11,4 +12,11 @@
 {% endblock %}
 
 {% block body %}
+    <form id="searchForm">
+        <input type="text" name="search" id="search">
+        <button type="submit">Search</button>
+    </form>
+    <div id="result">
+
+    </div>
 {% endblock %}
