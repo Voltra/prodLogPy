@@ -17,4 +17,9 @@ class DBConnection:
         co.row_factory = lambda c, r: dict([(col[0], r[idx]) for idx, col in enumerate(c.description)])
         return co
     #
+
+    @staticmethod
+    def factory():
+        return DBConnection.get
+    #
 #

@@ -5,6 +5,7 @@ from flask_restful import reqparse, abort, Api, Resource
 from sqlite3 import Connection as SQLiteConnection
 
 from app.controllers.ActiviteApiControllers import ActiviteApiController, ActiviteApiControllerRoot
+from app.controllers.ActiviteController import ActiviteController
 from app.controllers.ApiControllers import ApiController, ApiControllerRoot
 from app.controllers.EquipementApiControllers import EquipementApiController, EquipementApiControllerRoot
 from app.controllers.InstallationApiControllers import InstallationApiController, InstallationApiControllerRoot
@@ -28,13 +29,6 @@ The home route
 @app.route("/", endpoint="home")
 def home():
     return render_template("home.twig")
-
-"""
-Just a test route
-"""
-@app.route("/test")
-def test2():
-    return render_template("test.twig", name=120)
 
 def makeApiUrl(uri):
     return "/api" + uri
@@ -74,6 +68,13 @@ api.add_resource(InstallationApiController, makeApiUrl("/installations/<string:_
 A route that allows us to get all the data from the installations database
 """
 api.add_resource(InstallationApiControllerRoot, makeApiUrl("/installations"), endpoint="installations")
+
+methods = ["GET"]
+
+#TODO: Fix not found error
+activiteController = ActiviteController()
+app.add_url_rule(activiteController.routeUri("/codePostal/<string:zip>/"), methods=methods, view_func=activiteController.zipCode)
+
 
 """
 Part that actually runs the app an therefore launches the server
