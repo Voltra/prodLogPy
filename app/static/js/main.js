@@ -21,7 +21,14 @@
                 password: input.value
             }).then(function(jsonData){
                 console.log(jsonData);
-                form.closest("div").append(jsonData);
+                var tr = document.createElement("tr");
+                $.each(jsonData, function (idx, element) {
+                    var td = document.createElement("td");
+                    td.innerText = element;
+                    console.log(td);
+                    tr.append(tr);
+                });
+                form.closest("table").append(td);
             }).catch(console.error);
             return false;
         })

@@ -34,10 +34,16 @@ class Data(Resource):
     #
 #
 
+"""
+The home route
+"""
 @app.route("/", endpoint="home")
 def test():
     return jsonify(DATA)
 
+"""
+Just a test route
+"""
 @app.route("/test")
 def test2():
     return render_template("test.twig", name=120)
@@ -46,6 +52,10 @@ def makeApiUrl(uri):
     return "/api" + uri
 #
 
+"""
+Route who's purpose is to allow access to specific data using an id, 
+like the one use for the equipement, like the one use for the equipement
+"""
 api.add_resource(Data, makeApiUrl("/data/<_id>"))
 
 connection = SQLiteConnection("../database_LG.db")
@@ -53,12 +63,38 @@ cursor = connection.cursor()
 cursor.execute("SELECT  name FROM sqlite_master WHERE type='table'")
 print(cursor.fetchall())
 
+"""
+A route that allows us to get information from the activites table using an id present in the given table
+"""
 api.add_resource(ActiviteApiController, makeApiUrl("/activites/<string:_id>"), endpoint="activite")
+
+"""
+A route that allows us to get all the data from the activites database
+"""
 api.add_resource(ActiviteApiControllerRoot, makeApiUrl("/activites"), endpoint="activites")
+
+"""
+A route that allows us to get information from the equipements table, using an id present in the given table
+"""
 api.add_resource(EquipementApiController, makeApiUrl("/equipements/<string:_id>"), endpoint="equipement")
+
+"""
+A route that allows us to get all the data from the equipements database
+"""
 api.add_resource(EquipementApiControllerRoot, makeApiUrl("/equipements"), endpoint="equipements")
+
+"""
+A route that allows us to get information from the installation table, using an id present in the given table
+"""
 api.add_resource(InstallationApiController, makeApiUrl("/installations/<string:_id>"), endpoint="installation")
+
+"""
+A route that allows us to get all the data from the installations database
+"""
 api.add_resource(InstallationApiControllerRoot, makeApiUrl("/installations"), endpoint="installations")
 
+"""
+Part that actually runs the app an therefore launches the server
+"""
 if __name__ == "__main__":
     app.run(debug=True)
