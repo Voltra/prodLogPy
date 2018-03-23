@@ -1,11 +1,11 @@
 export default class TableGenerator{
 
     /**
-     * Contructor of the class TableGenerator
-     * @param {HTMLElement} elem - being the html on which we target the constructor and the load method.
+     * Constructor of the class TableGenerator
+     * @param {HTMLElement|DOMString} elem - being the html on which we target the constructor and the load method.
      * @param {Array} data - being the data to be loaded in the table.
      */
-    constructor(elem, data) {
+    constructor(elem, data = []) {
         if (!(data instanceof Array))
             throw new TypeError("Data should be an array");
 
@@ -16,6 +16,10 @@ export default class TableGenerator{
         this.load(data);
     }
 
+    /**
+     * Method generating the html from an array of data
+     * @param {Array} data - being the data to be generating as a html table
+     */
     load(data = []) {
         this.$elem.empty();
         this.$table.empty();
