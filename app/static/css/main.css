@@ -2,10 +2,37 @@
     box-sizing: border-box;
 }
 
-.error {
-    height: 12vh;
+#searchForm {
+    position: relative;
+    width: 40vw;
+    height: 10vh;
+    left: calc((75vw - 40vw) / 2);
+    top: 4vh;
+    background-color: #1d2d38;
+}
+
+#searchForm * {
+    position: absolute;
+    border: none;
+    height: 4vh;
+    font-size: 2vh;
+    top: 2vh;
+}
+
+#search {
+    width: 75%;
+    left: 1vw;
+    padding-left: 1vh;
+}
+
+#searchForm button {
+    left: 75%;
+    width: calc(25% - 1vw);
+}
+
+#result {
+    background-color: #1d2d38;
+    margin-top: 10vh;
+    height: 80vh;
     width: 100%;
-    font-size: 5vh;
-    transition: all 0.4s ease-in-out;
-    background-color: red;
 }

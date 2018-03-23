@@ -10,7 +10,6 @@ import TableGenerator from "@js/TableGenerator"
 	/*Catching event when submit if fired*/
 	$form.on("submit", e => {
 		e.preventDefault();
-		const url = "url to target";
 
 		const $input = $form.children("input[name='query']");
 		const $errorField = $("#errorField");
@@ -25,7 +24,7 @@ import TableGenerator from "@js/TableGenerator"
 
 		const tabGen = new TableGenerator("#result");
 
-		const url = _ => "/activites/codePostal?cp=%cp%".replace("%cp%", encodeURIComponent(_));
+		const url = _ => "/activites/codePostal/%zip%".replace("%zip%", encodeURIComponent(_));
 		$json.get(url($input.val()))
 		.then(::tabGen.load)
 		.catch(err => $.flash("failure", "There was an error while fetching remote data"));

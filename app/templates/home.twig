@@ -4,7 +4,9 @@
 {% block keywords %}accueil,recherche,api,installations,equipements,activites,installation,equipement,activite{% endblock %}
 
 {% block css %}
-    <link type="text/css" rel="stylesheet" href="{{ url_for("static", "css/flash.css") }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/reset.css") }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/flash.css") }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }}"/>
 {% endblock %}
 
 {% block js %}
