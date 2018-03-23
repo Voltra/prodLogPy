@@ -1,6 +1,8 @@
 import $ from "jquery"
 import {$json} from "@voltra/json"
 
+import TableGenerator from "@js/TableGenerator"
+
 (_ => {
 	console.log("ready");
 	const $form = $("#searchForm");
