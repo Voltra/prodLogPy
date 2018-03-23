@@ -22,24 +22,12 @@ DATA = {
 parser = reqparse.RequestParser()
 #parser.add_argument("key")
 
-def abortIfNotExists(_id):
-    if _id not in DATA:
-        abort(404, message="Object {} does not exists"%_id)
-#
-
-class Data(Resource):
-    def get(self, _id):
-        abortIfNotExists(_id)
-        return DATA[_id]
-    #
-#
-
 """
 The home route
 """
 @app.route("/", endpoint="home")
-def test():
-    return jsonify(DATA)
+def home():
+    return render_template("home.twig")
 
 """
 Just a test route
@@ -51,12 +39,6 @@ def test2():
 def makeApiUrl(uri):
     return "/api" + uri
 #
-
-"""
-Route who's purpose is to allow access to specific data using an id, 
-like the one use for the equipement, like the one use for the equipement
-"""
-api.add_resource(Data, makeApiUrl("/data/<_id>"))
 
 connection = SQLiteConnection("../database_LG.db")
 cursor = connection.cursor()
