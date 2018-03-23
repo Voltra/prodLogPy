@@ -72,9 +72,9 @@ api.add_resource(InstallationApiControllerRoot, makeApiUrl("/installations"), en
 methods = ["GET"]
 
 #TODO: Fix not found error
-activiteController = ActiviteController()
-app.add_url_rule(activiteController.routeUri("/codePostal/<string:zip>/"), methods=methods, view_func=activiteController.zipCode)
-
+# activiteController = ActiviteController()
+# app.add_url_rule(activiteController.routeUri("/codePostal/<string:zip>/"), methods=methods, view_func=activiteController.zipCode)
+ActiviteController.register(app, route_base="/activites")
 
 """
 Part that actually runs the app an therefore launches the server

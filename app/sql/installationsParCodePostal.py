@@ -7,20 +7,27 @@ A prepared statement that will retrieve information about activities from a zip 
 def installationsParCodePostal():
     return """
     SELECT
-    a.ComInsee as "NumInsee",
-    a.ComLib as "NomCommune",
-    a.ActLib as 'Activites',
-    e.EquNom as 'NomEquipements',
-    i.Latitude as 'Latitude',
-    i.Longitude as 'Longitude',
-    i."Numero de la voie" as "NumVoie",
-    i."Nom de la voie" as "Voie",
-    i."Nom du lieu dit" as "LieuDit",
-    i."Code postal" as "CodePostal"
-    FROM activites a, installations i, equipements e
-    WHERE a.ComInsee IN (
+    s.ComInsee as "N° Insee",
+    s.ComLib as "Nom Commune",
+    s.ActLib as 'Activité',
+    s.EquNom as 'Nom Équipement',
+    s.Latitude as 'Latitude',
+    s.Longitude as 'Longitude',
+    s."Numero de la voie" as "N° Voie",
+    s."Nom de la voie" as "Voie",
+    s."Nom du lieu dit" as "Lieu-dit",
+    s."Code postal" as "Code Postal"
+    FROM (
+      SELECT *
+      FROM equipements e, activites a, installations i
+      WHERE a.ComInsee = e.ComInsee
+        AND e.ComInsee = i."Code INSEE"
+        AND e.InsNumeroInstall = i."Numéro de l'installation"
+        AND e.EquipementId = a.EquipementId
+    ) s
+    WHERE s.ComInsee IN (
       SELECT distinct "Code INSEE" as "CodeInsee"
-      FROM installations i
-      WHERE i."Code postal" LIKE ?
-    )
+      FROM installations ins
+      WHERE ins."Code postal" LIKE :zip
+    );
     """

@@ -1,5 +1,7 @@
-export default class TableGenerator{
+import utf8 from "fix-utf8"
 
+
+export default class TableGenerator{
     /**
      * Constructor of the class TableGenerator
      * @param {HTMLElement|DOMString} elem - being the html on which we target the constructor and the load method.
@@ -10,9 +12,11 @@ export default class TableGenerator{
             throw new TypeError("Data should be an array");
 
         const table = document.createElement("table");
+        const ID = "table_generated_table";
+        table.id = ID;
         this.$elem = $(elem);
         this.$elem.append(table);
-        this.$table = this.$elem.children("table");
+        this.$table = $(table);
         this.load(data);
     }
 
@@ -23,20 +27,24 @@ export default class TableGenerator{
     load(data = []) {
         this.$elem.empty();
         this.$table.empty();
+        console.log("table: ", this.$table);
         this.$elem.append(this.$table);
 
+        const thead = document.createElement("thead");
         const head = document.createElement("tr");
+        thead.appendChild(head);
         if(data.length === 0)
             return;
 
         const columnNames = Object.keys(data[0]);
         columnNames
         .map(columnName => {
-            const th = document.createElement("TH");
-            th.innerText = columnName;
+            const th = document.createElement("th");
+            th.innerText = utf8(columnName);
             return th;
         }).forEach(::head.appendChild);
 
+        const tbody = document.createElement("tbody");
         data.forEach(elem => {
             const values = Object.entries(elem).map(([key, value]) => ({key, value}));
 
@@ -53,11 +61,14 @@ export default class TableGenerator{
             });
 
             const tr = document.createElement("tr");
-            values.map(elem => {
+            values.map(_ => {
                 const td = document.createElement("td");
-                td.innerText = elem.value;
+                td.innerText = utf8(_.value);
                 return td;
-            }).forEach(::tr.appendChild)
-        })
+            }).forEach(::tr.appendChild);
+			tbody.append(tr);
+        });
+        this.$table.append(thead);
+        this.$table.append(tbody);
     }
 }
