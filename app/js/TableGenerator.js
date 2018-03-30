@@ -23,6 +23,7 @@ export default class TableGenerator{
     /**
      * Method generating the html from an array of data
      * @param {Array} data - being the data to be generating as a html table
+     * @returns {TableGenerator} this (for chaining purposes)
      */
     load(data = []) {
         this.$elem.empty();
@@ -63,12 +64,13 @@ export default class TableGenerator{
             const tr = document.createElement("tr");
             values.map(_ => {
                 const td = document.createElement("td");
-                td.innerText = utf8(_.value);
+                td.innerText = utf8(_.value).trim() || "∅";
                 return td;
             }).forEach(::tr.appendChild);
 			tbody.append(tr);
         });
         this.$table.append(thead);
         this.$table.append(tbody);
+        return this;
     }
 }

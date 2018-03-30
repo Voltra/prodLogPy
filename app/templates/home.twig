@@ -5,8 +5,10 @@
 
 {% block css %}
     <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/reset.css") }}"/>
-    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/flash.css") }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/spinnerlord/main.css") }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/spinnerlord/variants/voltra.css") }}"/>
     <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/flash.css") }}"/>
 {% endblock %}
 
 {% block js %}
@@ -16,10 +18,14 @@
 
 {% block body %}
     <form id="searchForm">
-        <input type="text" name="search" id="search">
+        <input type="text" name="search" id="search" autocomplete="off">
+        <select name="critere" id="selection">
+            {#<option value="activites/codePostal" selected>Code postal</option>#}
+            {#<option value="activites/commune">Commune</option>#}
+        </select>
         <button type="submit">Search</button>
     </form>
-    <div id="result">
 
+    <div id="result">
     </div>
 {% endblock %}

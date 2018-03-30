@@ -11,7 +11,7 @@ from app.controllers.EquipementApiControllers import EquipementApiController, Eq
 from app.controllers.InstallationApiControllers import InstallationApiController, InstallationApiControllerRoot
 from app.sql.connection import DBConnection
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/static")
 api = Api(app)
 
 DATA = {

@@ -1,37 +1,69 @@
 import $ from "@js/loadJquery"
 import {$json} from "@voltra/json"
 import TableGenerator from "@js/TableGenerator"
+import generateSpinnerlord from "@js/generateSpinnerlord"
+import spinnerLordRemover from "spinner-lord"
+import {json} from "@js/urls"
 
 (_ => {
-	$(document).ready(_ => {
-		console.log("ready");
-		const $form = $("#searchForm");
+	// window.$ = $;
+	// window.$json = $json;
 
-		/*Catching event when submit if fired*/
-		$form.on("submit", e => {
-			e.preventDefault();
-
-			const $input = $form.children("input[name='search']");
-			const $errorField = $("#errorField");
-
-			if ($input.value === "") {
-				console.log("error");
-				$errorField.addClass("" +
-					"error");
-				$errorField.append("No search data being given");
-				return false
-			}
-
+	$.when(
+		$.getJSON(json("form.json"))
+	).done(form => {
+		$(document).ready(_ => {
+			console.log("ready");
 			const tabGen = new TableGenerator("#result");
+			const $form = $(form.form);
+			const $input = $form.children(form.field);
+			const $select = $form.children(form.select.selector);
 
-			const url = _ => "/activites/codePostal/%zip%".replace("%zip%", encodeURIComponent(_));
-			$json.get(url($input.val()))
-			.then(::tabGen.load)
-			.catch(err => {
-				$.flash("failure", "There was an error while fetching remote data");
-				console.error(err);
+			form.select.options
+			.map(({key, value}) => $("<option>", {value: key, text: value}))
+			.forEach($option => $option.appendTo($select));
+
+			const validRoutes = form.select.options.map(({key}) => key);
+
+			/*Catching event when submit if fired*/
+			$form.on("submit", e => {
+				e.preventDefault();
+
+				const value = $input.val();
+				const route = $select.val();
+
+				if (/^\s*$/.test(value)) {
+					const error = "No search data has been given";
+					console.error(error);
+					$.flash(error, "failure");
+					return false
+				}
+
+				if(!validRoutes.includes(route)){
+					const error = "Invalid criteria, nice try ;) !";
+					console.error(error);
+					$.flash(error, "failure");
+					return false;
+				}
+
+
+
+				const url = (route, value) => form.url.regex
+				.replace(form.url.replaceValue, encodeURIComponent(value))
+				.replace(form.url.replaceRoute, /*encodeURIComponent(*/route/*)*/);
+
+				generateSpinnerlord($).prependTo(document.body);
+				const removeSpinnerlord = spinnerLordRemover.bind(null, $);
+				$json.get(url(route, value))
+				.then(::tabGen.load)
+				.then(removeSpinnerlord)
+				.catch(err => {
+					$.flash("There was an error while fetching remote data", "failure");
+					console.error(err);
+					removeSpinnerlord();
+				});
+
 			});
-
 		});
-	});
+	}).catch(console.error);
 })();

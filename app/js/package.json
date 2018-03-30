@@ -16,7 +16,8 @@
     "@voltra/json": "^1.1.2",
     "fix-utf8": "^1.0.4",
     "jq-flash": "^1.0.2",
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "spinner-lord": "^0.2.6"
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
