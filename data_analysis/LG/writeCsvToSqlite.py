@@ -33,7 +33,10 @@ def createTableFromData(tableName, cursor, csvPath, sep=","):
     parseBoolIfBool = lambda s : True if s == "Oui" else False if s == "Non" else s
 
     for row in rows:
-        values = Array(list(row.values())).map(fixUtf8IfString).map(parseBoolIfBool).toArray()
+        values = Array(list(row.values()))\
+            .map(fixUtf8IfString)\
+            .toArray() #.map(parseBoolIfBool)\
+
         placeholders = keys.map(lambda x: "?").join(", ")
         cursor.execute("INSERT INTO " + strTableName + "(" + keysJoined + ") VALUES (" + placeholders + ")", values)
 #
