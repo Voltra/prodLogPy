@@ -10,14 +10,15 @@ from flask_classful import FlaskView, route
 
 class ActiviteController(Controller, FlaskView):
     def __init__(self):
-        co = sqlite3.Connection(DBConnection.location)
-        co.row_factory = lambda c, r: dict([(col[0], r[idx]) for idx, col in enumerate(c.description)])
-        Controller.__init__(self, Activite(co), "/activites")
+        Controller.__init__(self, Activite(DBConnection.get()), "/activites")
     #
 
-    @route("/codePostal/<string:zip>/") #TODO: See if it works, if it doesn't fix it
+    @route("/codePostal/<string:zip>") #TODO: See if it works, if it doesn't fix it
     def zipCode(self, zip):
-        return self.model.getForZip(zip)
+        print(zip)
+        res = self.model.getForZip(zip)
+        print(zip)
+        return res
     #
 
     def inseeCode(self, insee):

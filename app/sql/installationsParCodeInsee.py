@@ -6,17 +6,24 @@ A prepared statement for optimization purpose, retrieves 'installations' based u
 """
 def installationsParCodeInsee():
     return """
-    select a.ComInsee as "NumInsee",
-    a.ComLib as "NomCommune",
-    a.ActLib as 'Activites',
-    e.EquNom as 'NomEquipements',
-    i.Latitude as 'Latitude',
-    i.Longitude as 'Longitude',
-    i."Numero de la voie" as "NumVoie",
-    i."Nom de la voie" as "Voie",
-    i."Nom du lieu dit" as "LieuDit",
-    i."Code postal" as "CodePostal"
-    from activites a, equipements e, installations i
-    where a.ComInsee = ?;
+    SELECT s.ComInsee as "N° Insee",
+    s.ComLib as "Nom Commune",
+    s.ActLib as 'Activité',
+    s.EquNom as 'Nom Equipement',
+    s.Latitude as 'Latitude',
+    s.Longitude as 'Longitude',
+    s."Numero de la voie" as "N° de Voie",
+    s."Nom de la voie" as "Voie",
+    s."Nom du lieu dit" as "Lieu-Dit",
+    s."Code postal" as "Code Postal"
+    FROM (
+      SELECT *
+      FROM activites a, equipements e, installations i
+      WHERE a.ComInsee = e.ComInsee
+      AND e.ComInsee = i."Code INSEE"
+      AND a.EquipementId = e.EquipementId
+      AND e.InsNumeroInstall = i."Numéro de l'installation"
+    ) s
+    where s.ComInsee LIKE ?;
     """
 #

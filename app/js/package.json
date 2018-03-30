@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@voltra/json": "^1.1.2",
+    "fix-utf8": "^1.0.4",
     "jq-flash": "^1.0.2",
     "jquery": "^3.3.1"
   },

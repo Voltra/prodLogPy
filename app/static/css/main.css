@@ -2,21 +2,39 @@
     box-sizing: border-box;
 }
 
+body{
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+    overflow-y: auto;
+}
+
 #searchForm {
     position: relative;
     width: 40vw;
     height: 10vh;
-    left: calc((75vw - 40vw) / 2);
-    top: 4vh;
+    left: calc(50% - (40vw / 2));
+    top: 10vh;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
     background-color: #1d2d38;
 }
 
-#searchForm * {
+#searchForm  *{
     position: absolute;
     border: none;
     height: 4vh;
     font-size: 2vh;
-    top: 2vh;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 #search {
@@ -35,4 +53,47 @@
     margin-top: 10vh;
     height: 80vh;
     width: 100%;
+    color: #fff;
+
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+/*#result thead{*/
+    /*width: 100%;*/
+    /*height: 10%;*/
+/*}*/
+
+/*#result tbody{*/
+    /*width: 100%;*/
+    /*height: 90%;*/
+    /*overflow: hidden;*/
+    /*overflow-y: auto;*/
+/*}*/
+
+#result table{
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+}
+
+#result table thead{
+    flex: 0 0 auto;
+    width: calc(100% - 1.2em);
+}
+
+#result table tbody{
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: auto;
+}
+
+#result table tbody tr{
+    width: 100%;
+}
+
+#result table thead, #result table tbody tr{
+    display: table;
+    table-layout: fixed;
 }
