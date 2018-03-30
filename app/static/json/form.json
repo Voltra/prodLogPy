@@ -1,0 +1,21 @@
+{
+  "form": "#searchForm",
+  "field": "input[name='search']",
+  "select": {
+    "selector": "select[name='critere']",
+    "options": [
+      {
+        "key": "activites/codePostal",
+        "value": "Code Postal"
+      },{
+        "key": "activites/commune",
+        "value": "Commune"
+      }
+    ]
+  },
+  "url": {
+    "regex": "/%route%/%value%",
+    "replaceValue": "%value%",
+    "replaceRoute": "%route%"
+  }
+}
