@@ -18,6 +18,7 @@ class ApiController(Resource):
 
     """
     Get all the values from the id in input.
+    @:param _id - get the id of the object searched
     """
     def get(self, _id):
         args = self.parser.parse_args()
