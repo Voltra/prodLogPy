@@ -16,11 +16,21 @@ class Activite(Model):
         super().__init__("activites", cursor)
     #
 
+"""
+Method that make a call to InstallationParCodeInsee passing argument, in order to get all the information from the data base
+@:param self - it's the context
+@:param - insee - Insee number we're passing as an argument for the sql search 
+"""
     def getForInsee(self, insee):
         self.cursor.execute(installationsParCodeInsee(), insee)
         return self.cursor.fetchall()
     #
 
+"""
+Method that make a call to InstallationParCodeInsee passing argument, in order to get all the information from the data base
+@:param self - it's the context
+@:param - zipcode - Postal code number we're passing as an argument for the sql search 
+"""
     def getForZip(self, zipcode):
         co = DBConnection.factory()()
         # co = sqlite3.Connection(DBConnection.location)
@@ -31,5 +41,21 @@ class Activite(Model):
         except sqlite3.Warning as e:
             return e, 500
 
+    #
+
+"""
+Method that make a call to InstallationParCodeInsee passing argument, in order to get all the information from the data base
+@:param self - it's the context
+@:param - comLib - the name of the commune we're passing as an argument to the sql search 
+"""
+    def getForComLib(self, comblib):
+        co = DBConnection.factory()()
+
+        cursor = co.cursor()
+        cursor.execute(installationsCommune(), {"commune": comblib})
+        try:
+            return jsonify(cursor.fetchall())
+        except sqlite3.Warning as e:
+            return e, 500
     #
 #

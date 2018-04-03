@@ -62,7 +62,6 @@ import {json} from "@js/urls"
 					console.error(err);
 					removeSpinnerlord();
 				});
-
 			});
 		});
 	}).catch(console.error);
