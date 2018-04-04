@@ -40,10 +40,10 @@ body{
 	padding: 1vh;
 }
 
-#searchForm *{
+#searchForm > *{
 	flex: 1;
 	height: 4vh;
-	padding: 1vh;
+	/*padding: 1vh;*/
 }
 
 /*

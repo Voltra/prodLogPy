@@ -15,9 +15,9 @@ class ActiviteController(Controller, FlaskView):
         Controller.__init__(self, Activite(DBConnection.get()), "/activites")
     #
 
-"""
-The route we're using to pass argument from the view to the model in order to search using the postal code
-"""
+    """
+    The route we're using to pass argument from the view to the model in order to search using the postal code
+    """
     @route("/codePostal/<string:zip>") #TODO: See if it works, if it doesn't fix it
     def zipCode(self, zip):
         print(zip)
@@ -26,10 +26,10 @@ The route we're using to pass argument from the view to the model in order to se
         return res
     #
 
-"""
-The route we're using to pass argument from the view to the model in order to search using the commune name
-"""
-    @route('/commune/<string:commune>')
+    """
+    The route we're using to pass argument from the view to the model in order to search using the commune name
+    """
+    @route("/commune/<string:commune>")
     def comLib(self, commune):
         print(commune)
         res = self.model.getForComLib(commune)
@@ -37,9 +37,10 @@ The route we're using to pass argument from the view to the model in order to se
         return res
     #
 
-"""
-The route we're using to pass argument from the view to the model in order to search using the insee code
-"""
+    """
+    The route we're using to pass argument from the view to the model in order to search using the insee code
+    """
+    @route("/insee/<string:insee>")
     def inseeCode(self, insee):
         return self.model.getForInsee(insee)
     #

@@ -10,6 +10,10 @@
       },{
         "key": "activites/commune",
         "value": "Commune"
+      },
+      {
+        "key": "activites/insee",
+        "value": "Code INSEE"
       }
     ]
   },
