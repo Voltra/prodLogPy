@@ -10,9 +10,16 @@
       },{
         "key": "activites/commune",
         "value": "Commune"
+<<<<<<< HEAD
       },{
         "key": "activites/activites",
         "value": "Activite"
+=======
+      },
+      {
+        "key": "activites/insee",
+        "value": "Code INSEE"
+>>>>>>> d90e891bf9d953f2f25ee77d8a2a09976ce310da
       }
     ]
   },

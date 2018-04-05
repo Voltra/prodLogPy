@@ -11,12 +11,12 @@ def installationsParCommune():
     s.ComLib as "Nom Commune",
     s.ActLib as 'Activité',
     s.EquNom as 'Nom Équipement',
+    s."Numero de la voie" as "N° Voie",
+    s."Nom de la voie" as "Voie",
+    s."Nom du lieu dit" as "Lieu-dit",
+    s."Code postal" as "Code Postal",
     s.Latitude as 'Latitude',
-    s.Longitude as 'Longitude',
-    s."Numero de la voie" as 'N° Voie',
-    s."Nom de la voie" as 'Voie',
-    s."Nom du lieu dit" as 'Lieu-dit',
-    s."Code postal" as 'Code Postal'
+    s.Longitude as 'Longitude'
     FROM (
       SELECT *
       FROM equipements e, activites a, installations i
