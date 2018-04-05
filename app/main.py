@@ -34,10 +34,10 @@ def makeApiUrl(uri):
     return "/api" + uri
 #
 
-connection = SQLiteConnection("../database_LG.db")
-cursor = connection.cursor()
-cursor.execute("SELECT  name FROM sqlite_master WHERE type='table'")
-print(cursor.fetchall())
+# connection = SQLiteConnection("../database_LG.db")
+# cursor = connection.cursor()
+# cursor.execute("SELECT  name FROM sqlite_master WHERE type='table'")
+# print(cursor.fetchall())
 
 """
 A route that allows us to get information from the activites table using an id present in the given table

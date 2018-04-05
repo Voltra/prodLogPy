@@ -6,8 +6,8 @@ import spinnerLordRemover from "spinner-lord"
 import {json} from "@js/urls"
 
 (_ => {
-	// window.$ = $;
-	// window.$json = $json;
+	window.$ = $;
+	window.$json = $json;
 
 	$.when(
 		$.getJSON(json("form.json"))
