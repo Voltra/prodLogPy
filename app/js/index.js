@@ -55,6 +55,16 @@ import {json} from "@js/urls"
 				generateSpinnerlord($).prependTo(document.body);
 				const removeSpinnerlord = spinnerLordRemover.bind(null, $);
 				$json.get(url(route, value))
+				.then(data => {
+				  return Promise.resolve(data.map(item => {
+				  	const  title =  item["Nom Equipement"];
+					const {Latitude, Longitude} = item;
+					addMarker({lat: parseFloat(Latitude), lng: parseFloat(Longitude)}, title, map);
+					delete item["Latitude"];
+					delete item["Longitude"];
+					return item;
+				  }));
+				})
 				.then(::tabGen.load)
 				.then(removeSpinnerlord)
 				.catch(err => {

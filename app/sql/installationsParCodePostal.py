@@ -10,7 +10,7 @@ def installationsParCodePostal():
     s.ComInsee as "N° Insee",
     s.ComLib as "Nom Commune",
     s.ActLib as 'Activité',
-    s.EquNom as 'Nom Équipement',
+    s.EquNom as 'Nom Equipement',
     s."Numero de la voie" as "N° Voie",
     s."Nom de la voie" as "Voie",
     s."Nom du lieu dit" as "Lieu-dit",

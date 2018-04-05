@@ -10,7 +10,7 @@ def installationsParActivite():
     s.ComInsee as "N° Insee",
     s.ComLib as "Nom Commune",
     s.ActLib as 'Activité',
-    s.EquNom as 'Nom Équipement',
+    s.EquNom as 'Nom Equipement',
     s.Latitude as 'Latitude',
     s.Longitude as 'Longitude',
     s."Numero de la voie" as 'N° Voie',
