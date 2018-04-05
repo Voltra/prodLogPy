@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-A prepared statement for optimization purpose, retrieves 'installations' based upon a 'ComInsee'
+A prepared statement for optimization purpose, retrieves 'installations' based upon a 'ComLib'
 """
-def installationParCommune():
+def installationsParCommune():
     return """
     SELECT
     s.ComInsee as "N° Insee",
@@ -13,10 +13,10 @@ def installationParCommune():
     s.EquNom as 'Nom Équipement',
     s.Latitude as 'Latitude',
     s.Longitude as 'Longitude',
-    s."Numero de la voie" as "N° Voie",
-    s."Nom de la voie" as "Voie",
-    s."Nom du lieu dit" as "Lieu-dit",
-    s."Code postal" as "Code Postal"
+    s."Numero de la voie" as 'N° Voie',
+    s."Nom de la voie" as 'Voie',
+    s."Nom du lieu dit" as 'Lieu-dit',
+    s."Code postal" as 'Code Postal'
     FROM (
       SELECT *
       FROM equipements e, activites a, installations i
@@ -25,11 +25,10 @@ def installationParCommune():
         AND e.InsNumeroInstall = i."Numéro de l'installation"
         AND e.EquipementId = a.EquipementId
     ) s
-    WHERE s.ComInsee IN (
-      SELECT distinct "Code INSEE" as "CodeInsee"
+    WHERE s.ComLib IN (
+      SELECT distinct "Nom de la commune" as "ComLib"
       FROM installations ins
       WHERE ins."Nom de la commune" LIKE :commune
     );
-
     """
 #

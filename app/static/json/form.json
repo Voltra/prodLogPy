@@ -10,6 +10,9 @@
       },{
         "key": "activites/commune",
         "value": "Commune"
+      },{
+        "key": "activites/activites",
+        "value": "Activite"
       }
     ]
   },
