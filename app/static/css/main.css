@@ -4,6 +4,7 @@
 
 body{
     overflow: hidden;
+	overflow-y: auto;
 }
 
 #searchForm {
@@ -77,13 +78,13 @@ body{
 	border-right: none;
 }
 
-#result table thead, #result table tbody tr{
+#result thead, #result tbody tr{
     display: table;
     table-layout: fixed;
 }
 
-#result table td,
-#result table th{
+#result td,
+#result th{
 	font-size: 1.05vw;
 	padding: 1.5vh;
 	vertical-align: middle;
@@ -93,9 +94,9 @@ body{
 	overflow-y: auto;
 }
 
-#result tbody::-webkit-scrollbar, #result tbody::-moz-scrollbar {
-	width: 0;
-}
+/*#result tbody::-webkit-scrollbar, #result tbody::-moz-scrollbar {*/
+	/*width: 0;*/
+/*}*/
 
 #result tbody tr{
 	width: 100%;	
@@ -103,4 +104,9 @@ body{
 
 #result tbody tr {
 	border-bottom: dashed 0.2vh black;	
+}
+
+
+#result thead tr th:last-of-type, #result tbody tr td:last-of-type{
+	border-right: none;
 }

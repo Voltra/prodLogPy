@@ -9,9 +9,9 @@ import {json} from "@js/urls"
 	window.$ = $;
 	window.$json = $json;
 
-	$.when(
-		$.getJSON(json("form.json"))
-	).done(form => {
+	Promise.all([
+		$json.get(json("form.json"))
+	]).then(([form]) => {
 		$(document).ready(_ => {
 			console.log("ready");
 			const tabGen = new TableGenerator("#result");
@@ -64,8 +64,7 @@ import {json} from "@js/urls"
 					delete item["Longitude"];
 					return item;
 				  }));
-				})
-				.then(::tabGen.load)
+				}).then(::tabGen.load)
 				.then(removeSpinnerlord)
 				.catch(err => {
 					$.flash("There was an error while fetching remote data", "failure");
