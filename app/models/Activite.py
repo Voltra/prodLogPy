@@ -8,10 +8,7 @@ from app.sql.connection import DBConnection
 from app.sql.installationsParCodeInsee import installationsParCodeInsee
 from app.sql.installationsParCodePostal import installationsParCodePostal
 from app.sql.installationsParCommune import installationsParCommune
-<<<<<<< HEAD
 from app.sql.installationsParActivite import installationsParActivite
-=======
->>>>>>> d90e891bf9d953f2f25ee77d8a2a09976ce310da
 
 """
 A class that allows to tap into the "activites" table
@@ -72,24 +69,16 @@ class Activite(Model):
             return e, 500
     #
 
-<<<<<<< HEAD
-    def getForActLib(self, actlib):
-        co = DBConnection.factory()()
-
-        cursor = co.cursor()
-        cursor.execute(installationsParActivite(), {"activite": actlib})
-=======
     """
     Method that make a call to InstallationParCodeInsee passing argument, in order to get all the information from the data base
     @:param self - it's the context
     @:param - comLib - the name of the commune we're passing as an argument to the sql search 
     """
-    def getForComLib(self, comblib):
+    def getForActLib(self, actlib):
         co = DBConnection.factory()()
 
         cursor = co.cursor()
-        cursor.execute(installationsParCommune(), {"commune": comblib})
->>>>>>> d90e891bf9d953f2f25ee77d8a2a09976ce310da
+        cursor.execute(installationsParActivite(), {"activite": actlib})
         try:
             return jsonify(cursor.fetchall())
         except sqlite3.Warning as e:

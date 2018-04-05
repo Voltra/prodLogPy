@@ -29,11 +29,7 @@ class ActiviteController(Controller, FlaskView):
     """
     The route we're using to pass argument from the view to the model in order to search using the commune name
     """
-<<<<<<< HEAD
-    @route('/commune/<string:commune>')
-=======
     @route("/commune/<string:commune>")
->>>>>>> d90e891bf9d953f2f25ee77d8a2a09976ce310da
     def comLib(self, commune):
         print(commune)
         res = self.model.getForComLib(commune)
@@ -42,7 +38,6 @@ class ActiviteController(Controller, FlaskView):
     #
 
     """
-<<<<<<< HEAD
     The route we're using to pass argument from the view to the model in order to search using the commune name
     """
     @route('/activites/<string:activite>')
@@ -53,15 +48,10 @@ class ActiviteController(Controller, FlaskView):
         return res
 
     #
-
     """
-    The route we're using to pass argument from the view to the model in order to search using the insee code
-    """
-=======
     The route we're using to pass argument from the view to the model in order to search using the insee code
     """
     @route("/insee/<string:insee>")
->>>>>>> d90e891bf9d953f2f25ee77d8a2a09976ce310da
     def inseeCode(self, insee):
         return self.model.getForInsee(insee)
     #
