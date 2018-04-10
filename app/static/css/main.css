@@ -38,7 +38,19 @@ body{
 
 /*---Geo---*/
 
+#hidder {
+	background-image: url("/static/img/map.svg");
+	width: 8vw;
+	height: 8vh;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #e9ebee;
+	cursor: pointer;
+}
+
 #geo {
+	display: none;
 	height: 50vh;
 	width: 100%;
 }

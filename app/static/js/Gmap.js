@@ -6,10 +6,10 @@ var labelIndex = 0;
 var map;
 function initMap() {
 	
-	var Paris = {lat: 46.628213227315086, lng: 2.584222859375018};
+	var position = {lat: 47.768265941637964, lng: -1.1724274633209006};
 	map = new google.maps.Map(document.querySelector('#geo'), {
-	  zoom: 6,
-	  center: Paris
+	  zoom: 8,
+	  center: position
 	});
 	
 	 google.maps.event.addListener(map, 'click', function(event) {

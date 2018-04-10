@@ -17,6 +17,7 @@ class ActiviteController(Controller, FlaskView):
 
     """
     The route we're using to pass argument from the view to the model in order to search using the postal code
+    @:param zip - The postal code we're searching for
     """
     @route("/codePostal/<string:zip>") #TODO: See if it works, if it doesn't fix it
     def zipCode(self, zip):
@@ -28,6 +29,7 @@ class ActiviteController(Controller, FlaskView):
 
     """
     The route we're using to pass argument from the view to the model in order to search using the commune name
+    @:param commune - The commune name we're searching for
     """
     @route("/commune/<string:commune>")
     def comLib(self, commune):
@@ -38,7 +40,8 @@ class ActiviteController(Controller, FlaskView):
     #
 
     """
-    The route we're using to pass argument from the view to the model in order to search using the commune name
+    The route we're using to pass argument from the view to the model in order to search using the activite name
+    @:param activite - The activite name we're searching for
     """
     @route('/activites/<string:activite>')
     def actLib(self, activite):
@@ -50,6 +53,7 @@ class ActiviteController(Controller, FlaskView):
     #
     """
     The route we're using to pass argument from the view to the model in order to search using the insee code
+    @:param activite - The activite name we're searching for    
     """
     @route("/insee/<string:insee>")
     def inseeCode(self, insee):
